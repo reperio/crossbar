@@ -1,0 +1,31 @@
+{
+  "name": "@reperio/crossbar",
+  "version": "1.0.0",
+  "description": "Node Module for interacting with Crossbar using Promises",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:reperio/crossbar.git",
+  "author": "Will Osbourne <will@osbourne.org>",
+  "license": "MPL-2.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf ./dist && webpack --mode=production",
+    "clean": "rm -rf ./dist",
+    "deploy": "yarn build && yarn publish --access public"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "query-string": "^6.2.0"
+  },
+  "devDependencies": {
+    "@types/query-string": "^6.1.1",
+    "ts-loader": "^5.3.1",
+    "typescript": "^3.1.6",
+    "webpack": "^4.28.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
