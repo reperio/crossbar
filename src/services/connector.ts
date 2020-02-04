@@ -1,5 +1,6 @@
 import axiosStatic, { AxiosInstance } from 'axios';
 import { AccountsService } from "./accountsService";
+import { CallInspectorService } from "./callInspectorService";
 
 export interface CrossbarConfig {
     baseURL: string;
@@ -17,6 +18,7 @@ export class Crossbar {
     config: CrossbarConfig;
 
     readonly accountsService: AccountsService;
+    readonly callInspectorService: CallInspectorService;
 
     constructor(config?: Partial<CrossbarConfig>) {
         this.config = { ...defaultCrossbarConfig, ...config };
@@ -27,6 +29,7 @@ export class Crossbar {
 
         this.setAxiosInterceptors();
         this.accountsService = new AccountsService(this);
+        this.callInspectorService = new CallInspectorService(this);
     }
 
     setAxiosInterceptors() {
