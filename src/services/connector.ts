@@ -1,5 +1,6 @@
 import axiosStatic, { AxiosInstance } from 'axios';
 import { AccountsService } from "./accountsService";
+import { ApiAuthService } from "./apiAuthService";
 import { CallInspectorService } from "./callInspectorService";
 import { CallflowsService } from "./callflowsService";
 
@@ -20,6 +21,7 @@ export class Crossbar {
     config: CrossbarConfig;
 
     readonly accountsService: AccountsService;
+    readonly apiAuthService: ApiAuthService;
     readonly callInspectorService: CallInspectorService;
     readonly callflowsService: CallflowsService;
 
@@ -44,6 +46,7 @@ export class Crossbar {
         }
 
         this.accountsService = new AccountsService(this);
+        this.apiAuthService = new ApiAuthService(this);
         this.callInspectorService = new CallInspectorService(this);
         this.callflowsService = new CallflowsService(this);
     }
