@@ -3,11 +3,13 @@ import { AccountsService } from "./accountsService";
 
 export interface CrossbarConfig {
     baseURL: string;
+    accountId: string;
     authToken?: string;
 };
 
 const defaultCrossbarConfig: CrossbarConfig = {
     baseURL: "",
+    accountId: "",
 };
 
 export class Crossbar {
@@ -19,7 +21,7 @@ export class Crossbar {
     constructor(config?: Partial<CrossbarConfig>) {
         this.config = { ...defaultCrossbarConfig, ...config };
         this.axios = axiosStatic.create({
-            baseURL: this.config.baseURL,
+            baseURL: `${this.config.baseURL}/accounts/${this.config.accountId}`,
             withCredentials: true
         });
 

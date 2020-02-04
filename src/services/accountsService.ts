@@ -6,67 +6,61 @@ export class AccountsService {
     constructor(public connector: Crossbar) {}
 
     /**
-     * /v2/accounts/{id}
-     * @param {string} id account id
+     * GET {baseURL}/v2/accounts/{accountId}
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getAccountById(id: string, queryParams?: QueryParams) {
-        let route = `/accounts/${id}`;
+    async getAccountById(queryParams?: QueryParams) {
+        let route = ``;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
 
     /**
-     * /v2/accounts/{id}/children
-     * @param {string} id account id
+     * GET {baseURL}/v2/accounts/{accountId}/children
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getAccountChildren(id: string, queryParams?: QueryParams) {
-        let route = `/accounts/${id}/children`;
+    async getAccountChildren(queryParams?: QueryParams) {
+        let route = `/children`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
 
     /**
-     * /v2/accounts/{id}/descentdants
-     * @param {string} id account id
+     * GET {baseURL}/v2/accounts/{accountId}/descentdants
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getAccountDescendants(id: string, queryParams?: QueryParams) {
-        let route = `/accounts/${id}/descendants`;
+    async getAccountDescendants(queryParams?: QueryParams) {
+        let route = `/descendants`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
 
     /**
-     * /v2/accounts/{id}/directories
-     * @param {string} id account id
+     * GET {baseURL}/v2/accounts/{accountId}/directories
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getAccountDirectories(id: string, queryParams?: QueryParams) {
-        let route = `/accounts/${id}/directories`;
+    async getAccountDirectories(queryParams?: QueryParams) {
+        let route = `/directories`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
 
     /**
-     * /v2/accounts/{id}/channels
-     * @param {string} id account id
+     * GET {baseURL}/v2/accounts/{accountId}/channels
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getAccountChannels(id: string, queryParams?: QueryParams) {
-        let route = `/accounts/${id}/channels`;
+    async getAccountChannels(queryParams?: QueryParams) {
+        let route = `/channels`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
 
     /**
-     * /v2/accounts/{id}/limits
-     * @param {string} id account id
+     * GET {baseURL}/v2/accounts/{accountId}/limits
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getAccountLimits(id: string, queryParams?: QueryParams) {
-        let route = `/accounts/${id}/limits`;
+    async getAccountLimits(queryParams?: QueryParams) {
+        let route = `/limits`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
