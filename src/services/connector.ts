@@ -1,13 +1,13 @@
 import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { AccountsService } from "./accountsService";
+import { AccountService } from "./accountService";
 import { ApiAuthService } from "./apiAuthService";
-import { CallflowsService } from "./callflowsService";
+import { CallflowService } from "./callflowService";
 import { CallInspectorService } from "./callInspectorService";
-import { CdrsService } from "./cdrsService";
-import { DevicesService } from "./devicesService";
-import { FaxesService } from "./faxesService";
+import { CdrService } from "./cdrService";
+import { DeviceService } from "./deviceService";
+import { FaxService } from "./faxService";
 import { UserAuthService } from "./userAuthService";
-import { UsersService } from "./usersService";
+import { UserService } from "./userService";
 
 export interface CrossbarConfig {
     baseURL: string;
@@ -26,15 +26,15 @@ export class Crossbar {
     config: CrossbarConfig;
     axiosNonAccountConfig: AxiosRequestConfig;
 
-    readonly accountsService: AccountsService;
+    readonly accountService: AccountService;
     readonly apiAuthService: ApiAuthService;
-    readonly callflowsService: CallflowsService;
+    readonly callflowService: CallflowService;
     readonly callInspectorService: CallInspectorService;
-    readonly cdrsService: CdrsService;
-    readonly devicesService: DevicesService;
-    readonly faxesService: FaxesService;
+    readonly cdrService: CdrService;
+    readonly deviceService: DeviceService;
+    readonly faxService: FaxService;
     readonly userAuthService: UserAuthService;
-    readonly usersService: UsersService;
+    readonly userService: UserService;
 
     constructor(config?: Partial<CrossbarConfig>) {
         this.config = { ...defaultCrossbarConfig, ...config };
@@ -57,15 +57,15 @@ export class Crossbar {
             this.setAxiosInterceptors();
         }
 
-        this.accountsService = new AccountsService(this);
+        this.accountService = new AccountService(this);
         this.apiAuthService = new ApiAuthService(this);
-        this.callflowsService = new CallflowsService(this);
+        this.callflowService = new CallflowService(this);
         this.callInspectorService = new CallInspectorService(this);
-        this.cdrsService = new CdrsService(this);
-        this.devicesService = new DevicesService(this);
-        this.faxesService = new FaxesService(this);
+        this.cdrService = new CdrService(this);
+        this.deviceService = new DeviceService(this);
+        this.faxService = new FaxService(this);
         this.userAuthService = new UserAuthService(this);
-        this.usersService = new UsersService(this);
+        this.userService = new UserService(this);
     }
 
     setAxiosInterceptors() {

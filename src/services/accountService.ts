@@ -2,59 +2,65 @@ import { Crossbar } from './connector';
 import { QueryParams } from '../models/queryParams';
 import { applyQueryParams } from '../helpers/requestHelper';
 
-export class CdrsService {
+export class AccountService {
     constructor(public connector: Crossbar) {}
 
     /**
-     * GET {baseURL}/v2/accounts/{accountId}/cdrs
+     * GET {baseURL}/v2/accounts/{accountId}
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getCdrs(queryParams?: QueryParams) {
-        let route = `/cdrs`;
+    async getAccountById(queryParams?: QueryParams) {
+        let route = ``;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
 
     /**
-     * GET {baseURL}/v2/accounts/{accountId}/cdrs
+     * GET {baseURL}/v2/accounts/{accountId}/children
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getCdrsCsv(queryParams?: QueryParams) {
-        let route = `/cdrs`;
-        if (queryParams) route = applyQueryParams(route, queryParams);
-        const config = this.connector.axios.defaults;
-        config.headers['Accept'] = 'text/csv';
-        return await this.connector.axios.get(route, config);
-    }
-
-    /**
-     * GET {baseURL}/v2/accounts/{accountId}/cdrs/{cdrId}
-     * @param {string} id CDR id
-     * @param {QueryParams} queryParams global API query paramters
-     */
-    async getCdrById(id: string, queryParams?: QueryParams) {
-        let route = `/cdrs/${id}`;
+    async getAccountChildren(queryParams?: QueryParams) {
+        let route = `/children`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
 
     /**
-     * GET {baseURL}/v2/accounts/{accountId}/cdrs/interactions
+     * GET {baseURL}/v2/accounts/{accountId}/descentdants
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getCdrInteractions(queryParams?: QueryParams) {
-        let route = `/cdrs/interaction`;
+    async getAccountDescendants(queryParams?: QueryParams) {
+        let route = `/descendants`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
 
     /**
-     * GET {baseURL}/v2/accounts/{accountId}/cdrs/legs/{interactionId}
-     * @param {string} id interaction id
+     * GET {baseURL}/v2/accounts/{accountId}/directories
      * @param {QueryParams} queryParams global API query paramters
      */
-    async getCdrInteractionLegs(id: string, queryParams?: QueryParams) {
-        let route = `/cdrs/legs/${id}`;
+    async getAccountDirectories(queryParams?: QueryParams) {
+        let route = `/directories`;
+        if (queryParams) route = applyQueryParams(route, queryParams);
+        return await this.connector.axios.get(route);
+    }
+
+    /**
+     * GET {baseURL}/v2/accounts/{accountId}/channels
+     * @param {QueryParams} queryParams global API query paramters
+     */
+    async getAccountChannels(queryParams?: QueryParams) {
+        let route = `/channels`;
+        if (queryParams) route = applyQueryParams(route, queryParams);
+        return await this.connector.axios.get(route);
+    }
+
+    /**
+     * GET {baseURL}/v2/accounts/{accountId}/limits
+     * @param {QueryParams} queryParams global API query paramters
+     */
+    async getAccountLimits(queryParams?: QueryParams) {
+        let route = `/limits`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }

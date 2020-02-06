@@ -2,7 +2,7 @@ import { Crossbar } from './connector';
 import { QueryParams } from '../models/queryParams';
 import { applyQueryParams } from '../helpers/requestHelper';
 
-export class DevicesService {
+export class DeviceService {
     constructor(public connector: Crossbar) {}
 
     /**
