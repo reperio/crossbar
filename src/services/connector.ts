@@ -1,4 +1,4 @@
-import axiosStatic, { AxiosInstance } from 'axios';
+import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { AccountsService } from "./accountsService";
 import { ApiAuthService } from "./apiAuthService";
 import { CallflowsService } from "./callflowsService";
@@ -22,6 +22,7 @@ const defaultCrossbarConfig: CrossbarConfig = {
 export class Crossbar {
     axios: AxiosInstance;
     config: CrossbarConfig;
+    axiosNonAccountConfig: AxiosRequestConfig;
 
     readonly accountsService: AccountsService;
     readonly apiAuthService: ApiAuthService;
@@ -38,10 +39,11 @@ export class Crossbar {
             withCredentials: true
         });
 
+        this.axiosNonAccountConfig = {...this.axios.defaults, baseURL: this.config.baseURL};
+
         if (this.config.pvtApiKey && !this.config.authToken) {
             const authPutData = { data: { api_key: this.config.pvtApiKey } };
-            const authPutConfig = { ...this.axios.defaults, baseURL: this.config.baseURL };
-            this.axios.put('/api_auth', authPutData, authPutConfig).then(authResponse => {
+            this.axios.put('/api_auth', authPutData, this.axiosNonAccountConfig).then(authResponse => {
                 this.config.authToken = authResponse.data.auth_token;
                 this.setAxiosInterceptors();
             }).catch(authErr => {
@@ -72,8 +74,7 @@ export class Crossbar {
             let errResponse = error.response;
             if (errResponse.status === 401 && this.config.pvtApiKey) {
                 const authPutData = { data: { api_key: this.config.pvtApiKey } };
-                const authPutConfig = { ...this.axios.defaults, baseURL: this.config.baseURL };
-                return this.axios.put('/api_auth', authPutData, authPutConfig).then(authResponse => {
+                return this.axios.put('/api_auth', authPutData, this.axiosNonAccountConfig).then(authResponse => {
                     this.config.authToken = authResponse.data.auth_token;
                     this.setAxiosInterceptors();
                     errResponse.config.headers['X-Auth-Token'] = this.config.authToken;
