@@ -1,8 +1,9 @@
 import axiosStatic, { AxiosInstance } from 'axios';
 import { AccountsService } from "./accountsService";
 import { ApiAuthService } from "./apiAuthService";
-import { CallInspectorService } from "./callInspectorService";
 import { CallflowsService } from "./callflowsService";
+import { CallInspectorService } from "./callInspectorService";
+import { CdrsService } from "./cdrsService";
 import { UsersService } from "./usersService";
 
 export interface CrossbarConfig {
@@ -23,8 +24,9 @@ export class Crossbar {
 
     readonly accountsService: AccountsService;
     readonly apiAuthService: ApiAuthService;
-    readonly callInspectorService: CallInspectorService;
     readonly callflowsService: CallflowsService;
+    readonly callInspectorService: CallInspectorService;
+    readonly cdrsService: CdrsService;
     readonly usersService: UsersService;
 
     constructor(config?: Partial<CrossbarConfig>) {
@@ -49,8 +51,9 @@ export class Crossbar {
 
         this.accountsService = new AccountsService(this);
         this.apiAuthService = new ApiAuthService(this);
-        this.callInspectorService = new CallInspectorService(this);
         this.callflowsService = new CallflowsService(this);
+        this.callInspectorService = new CallInspectorService(this);
+        this.cdrsService = new CdrsService(this);
         this.usersService = new UsersService(this);
     }
 
