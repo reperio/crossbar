@@ -37,19 +37,21 @@ export class UsersService {
 
     /**
      * PATCH {baseURL}/v2/accounts/{accountId}/users
+     * @param {string} id user id
      * @param {any} data user data
      */
-    async patchUser(data: any) {
-        let route = `/users`;
+    async patchUser(id: string, data: any) {
+        let route = `/users/${id}`;
         return await this.connector.axios.patch(route, {data});
     }
 
     /**
      * POST {baseURL}/v2/accounts/{accountId}/users
+     * @param {string} id user id
      * @param {any} data full user data
      */
-    async changeUser(data: any) {
-        let route = `/users`;
+    async changeUser(id: string, data: any) {
+        let route = `/users/${id}`;
         return await this.connector.axios.post(route, {data});
     }
 
