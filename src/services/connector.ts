@@ -3,6 +3,7 @@ import { AccountsService } from "./accountsService";
 import { ApiAuthService } from "./apiAuthService";
 import { CallInspectorService } from "./callInspectorService";
 import { CallflowsService } from "./callflowsService";
+import { UsersService } from "./usersService";
 
 export interface CrossbarConfig {
     baseURL: string;
@@ -24,6 +25,7 @@ export class Crossbar {
     readonly apiAuthService: ApiAuthService;
     readonly callInspectorService: CallInspectorService;
     readonly callflowsService: CallflowsService;
+    readonly usersService: UsersService;
 
     constructor(config?: Partial<CrossbarConfig>) {
         this.config = { ...defaultCrossbarConfig, ...config };
@@ -49,6 +51,7 @@ export class Crossbar {
         this.apiAuthService = new ApiAuthService(this);
         this.callInspectorService = new CallInspectorService(this);
         this.callflowsService = new CallflowsService(this);
+        this.usersService = new UsersService(this);
     }
 
     setAxiosInterceptors() {
