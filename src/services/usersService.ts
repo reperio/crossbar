@@ -109,4 +109,15 @@ export class UsersService {
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
+
+    /**
+     * GET {baseURL}/v2/accounts/{accountId}/users/{userId}/devices
+     * @param {string} id user id
+     * @param {QueryParams} queryParams global API query paramters
+     */
+    async getUserDevices(id: string, queryParams?: QueryParams) {
+        let route = `/users/${id}/devices`;
+        if (queryParams) route = applyQueryParams(route, queryParams);
+        return await this.connector.axios.get(route);
+    }
 }
