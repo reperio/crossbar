@@ -5,6 +5,7 @@ import { CallflowsService } from "./callflowsService";
 import { CallInspectorService } from "./callInspectorService";
 import { CdrsService } from "./cdrsService";
 import { DevicesService } from "./devicesService";
+import { UserAuthService } from "./userAuthService";
 import { UsersService } from "./usersService";
 
 export interface CrossbarConfig {
@@ -30,6 +31,7 @@ export class Crossbar {
     readonly callInspectorService: CallInspectorService;
     readonly cdrsService: CdrsService;
     readonly devicesService: DevicesService;
+    readonly userAuthService: UserAuthService;
     readonly usersService: UsersService;
 
     constructor(config?: Partial<CrossbarConfig>) {
@@ -59,6 +61,7 @@ export class Crossbar {
         this.callInspectorService = new CallInspectorService(this);
         this.cdrsService = new CdrsService(this);
         this.devicesService = new DevicesService(this);
+        this.userAuthService = new UserAuthService(this);
         this.usersService = new UsersService(this);
     }
 
