@@ -120,4 +120,15 @@ export class UsersService {
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
+
+    /**
+     * GET {baseURL}/v2/accounts/{accountId}/users/{userId}/devices
+     * @param {string} id user id
+     * @param {string} phoneNumber phone number to connect the user's device to once answered
+     */
+    async executeUserQuickCall(id: string, phoneNumber: string) {
+        let route = `/users/${id}/quickcall/${phoneNumber}`;
+        return await this.connector.axios.get(route);
+    }
+
 }
