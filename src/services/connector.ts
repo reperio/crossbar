@@ -6,6 +6,7 @@ import { CallInspectorService } from "./callInspectorService";
 import { CdrService } from "./cdrService";
 import { DeviceService } from "./deviceService";
 import { FaxService } from "./faxService";
+import { RecordingService } from "./recordingService";
 import { UserAuthService } from "./userAuthService";
 import { UserService } from "./userService";
 
@@ -33,6 +34,7 @@ export class Crossbar {
     readonly cdrService: CdrService;
     readonly deviceService: DeviceService;
     readonly faxService: FaxService;
+    readonly recordingService: RecordingService;
     readonly userAuthService: UserAuthService;
     readonly userService: UserService;
 
@@ -64,6 +66,7 @@ export class Crossbar {
         this.cdrService = new CdrService(this);
         this.deviceService = new DeviceService(this);
         this.faxService = new FaxService(this);
+        this.recordingService = new RecordingService(this);
         this.userAuthService = new UserAuthService(this);
         this.userService = new UserService(this);
     }
