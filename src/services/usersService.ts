@@ -72,4 +72,39 @@ export class UsersService {
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }
+
+    /**
+     * GET {baseURL}/v2/accounts/{accountId}/users/{userId}/cdrs
+     * @param {string} id user id
+     * @param {QueryParams} queryParams global API query paramters
+     */
+    async getUserCdrs(id: string, queryParams?: QueryParams) {
+        let route = `/users/${id}/cdrs`;
+        if (queryParams) route = applyQueryParams(route, queryParams);
+        return await this.connector.axios.get(route);
+    }
+
+    /**
+     * GET {baseURL}/v2/accounts/{accountId}/users/{userId}/cdrs
+     * @param {string} id user id
+     * @param {QueryParams} queryParams global API query paramters
+     */
+    async getUserCdrsCsv(id: string, queryParams?: QueryParams) {
+        let route = `/users/${id}/cdrs`;
+        if (queryParams) route = applyQueryParams(route, queryParams);
+        const config = this.connector.axios.defaults;
+        config.headers['Accept'] = 'text/csv';
+        return await this.connector.axios.get(route, config);
+    }
+
+    /**
+     * GET {baseURL}/v2/accounts/{accountId}/users/{userId}/cdrs/interactions
+     * @param {string} id user id
+     * @param {QueryParams} queryParams global API query paramters
+     */
+    async getUserCdrInteractions(id: string, queryParams?: QueryParams) {
+        let route = `/users/${id}/cdrs/interaction`;
+        if (queryParams) route = applyQueryParams(route, queryParams);
+        return await this.connector.axios.get(route);
+    }
 }
