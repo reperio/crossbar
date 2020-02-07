@@ -1,6 +1,6 @@
 {
   "name": "@reperio/crossbar",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "Node Module for interacting with Crossbar using Promises",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
