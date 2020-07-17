@@ -9,7 +9,7 @@ import { FaxService } from "./faxService";
 import { RecordingService } from "./recordingService";
 import { UserAuthService } from "./userAuthService";
 import { UserService } from "./userService";
-import { VoicemailService } from "./VoicemailService";
+import { VoicemailService } from "./voicemailService";
 
 export interface CrossbarConfig {
     baseURL: string;

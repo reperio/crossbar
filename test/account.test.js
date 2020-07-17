@@ -33,3 +33,10 @@ test('Get account children', () => {
     expect(response).toHaveProperty('status', 200);
     expect(response.data).toHaveProperty('status', 'success')  })
 })
+
+test('Get Vmboxes', () => {
+  return instance.voicemailService.getVmboxes().then(response => {
+    console.log(response)
+    expect(response).toHaveProperty('status', 200);
+    expect(response.data).toHaveProperty('status', 'success')  })
+})
