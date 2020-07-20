@@ -36,6 +36,27 @@ export class AccountService {
     }
 
     /**
+     * GET {baseURL}/v2/accounts/{accountId}/
+     * @param {string} id account id
+     * @param {any} data vmbox data
+     */
+    async patchAccount(id: string, data: any) {
+        let route = `/${id}`;
+        return await this.connector.axios.post(route, {data});
+    }
+
+
+    /**
+     * POST {baseURL}/v2/accounts/{accountId}/vmboxes/{vmboxid}
+     * @param {string} id vmbox id
+     * @param {any} data vmbox data
+     */
+    async patchVmbox(id: string, data: any) {
+        let route = `/vmboxes/${id}`;
+        return await this.connector.axios.post(route, {data});
+    }
+
+    /**
      * GET {baseURL}/v2/accounts/{accountId}/directories
      * @param {QueryParams} queryParams global API query paramters
      */
@@ -83,7 +104,6 @@ export class AccountService {
         let route = `/${id}`;
         return await this.connector.axios.put(route, {data});
     }
-
 
     /**
      * GET {baseURL}/v2/accounts/{accountId}/parents
