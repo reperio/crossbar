@@ -16,11 +16,40 @@ export class AccountService {
     }
 
     /**
+     * DELETE {baseURL}/v2/accounts/{accountId}/
+     * @param {any} id account id
+     */
+    async deleteAccount(id: any) {
+        let route = `/${id}`;
+        return await this.connector.axios.delete(route);
+    }
+
+    /**
+     * PUT {baseURL}/v2/accounts/{accountId}/
+     * @param {any} id account id
+     * @param {any} data child account data
+     */
+    async addChildToAccount(id: any, data: any) {
+        let route = `/${id}`;
+        return await this.connector.axios.put(route, {data});
+    }
+
+    /**
      * GET {baseURL}/v2/accounts/{accountId}/children
      * @param {QueryParams} queryParams global API query paramters
      */
     async getAccountChildren(queryParams?: QueryParams) {
         let route = `/children`;
+        if (queryParams) route = applyQueryParams(route, queryParams);
+        return await this.connector.axios.get(route);
+    }
+
+    /**
+     * GET {baseURL}/v2/accounts/{accountId}/parents
+     * @param {QueryParams} queryParams global API query paramters
+     */
+    async getAccountParents(queryParams?: QueryParams) {
+        let route = `/parents`;
         if (queryParams) route = applyQueryParams(route, queryParams);
         return await this.connector.axios.get(route);
     }

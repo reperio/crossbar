@@ -9,6 +9,7 @@ import { FaxService } from "./faxService";
 import { RecordingService } from "./recordingService";
 import { UserAuthService } from "./userAuthService";
 import { UserService } from "./userService";
+import { VoicemailService } from "./voicemailService";
 
 export interface CrossbarConfig {
     baseURL: string;
@@ -37,6 +38,7 @@ export class Crossbar {
     readonly recordingService: RecordingService;
     readonly userAuthService: UserAuthService;
     readonly userService: UserService;
+    readonly voicemailService: VoicemailService;
 
     constructor(config?: Partial<CrossbarConfig>) {
         this.config = { ...defaultCrossbarConfig, ...config };
@@ -69,6 +71,7 @@ export class Crossbar {
         this.recordingService = new RecordingService(this);
         this.userAuthService = new UserAuthService(this);
         this.userService = new UserService(this);
+        this.voicemailService = new VoicemailService(this);
     }
 
     setAxiosInterceptors() {

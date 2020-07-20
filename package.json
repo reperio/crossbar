@@ -8,7 +8,7 @@
   "author": "Will Osbourne <will@osbourne.org>",
   "license": "MPL-2.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "rm -rf ./dist && webpack --mode=production",
     "clean": "rm -rf ./dist",
     "deploy": "yarn build && yarn publish --access public",
@@ -17,10 +17,12 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "dotenv": "^8.2.0",
     "query-string": "^6.2.0"
   },
   "devDependencies": {
     "@types/query-string": "^6.1.1",
+    "jest": "^26.1.0",
     "ts-loader": "^5.3.1",
     "typescript": "^3.1.6",
     "webpack": "^4.28.1",
