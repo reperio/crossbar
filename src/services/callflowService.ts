@@ -1,6 +1,6 @@
-import { Crossbar } from './connector';
-import { QueryParams } from '../models/queryParams';
-import { applyQueryParams } from '../helpers/requestHelper';
+import { Crossbar } from "./connector";
+import { QueryParams } from "../models/queryParams";
+import { applyQueryParams } from "../helpers/requestHelper";
 
 export class CallflowService {
     constructor(public connector: Crossbar) {}
@@ -44,6 +44,15 @@ export class CallflowService {
      */
     async patchCallflowById(id: string, data: any) {
         let route = `/callflows/${id}`;
-        return await this.connector.axios.patch(route, {data});
+        return await this.connector.axios.patch(route, { data });
+    }
+
+    /**
+     * PUT {baseURL}/v2/accounts/{accountId}/callflows
+     * @param {any} data callflow data
+     */
+    async createCallflow(data: any) {
+        let route = `/callflows`;
+        return await this.connector.axios.put(route, { data });
     }
 }
