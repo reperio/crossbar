@@ -1,16 +1,16 @@
-import axiosStatic, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { AccountService } from "./accountService";
-import { ApiAuthService } from "./apiAuthService";
-import { CallflowService } from "./callflowService";
-import { CallInspectorService } from "./callInspectorService";
-import { CdrService } from "./cdrService";
-import { DeviceService } from "./deviceService";
-import { FaxService } from "./faxService";
-import { RecordingService } from "./recordingService";
-import { UserAuthService } from "./userAuthService";
-import { UserService } from "./userService";
-import { VoicemailService } from "./voicemailService";
-import { PhoneNumberService } from "./phoneNumberService";
+import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { AccountService } from './accountService';
+import { ApiAuthService } from './apiAuthService';
+import { CallflowService } from './callflowService';
+import { CallInspectorService } from './callInspectorService';
+import { CdrService } from './cdrService';
+import { DeviceService } from './deviceService';
+import { FaxService } from './faxService';
+import { RecordingService } from './recordingService';
+import { UserAuthService } from './userAuthService';
+import { UserService } from './userService';
+import { VoicemailService } from './voicemailService';
+import { PhoneNumberService } from './phoneNumberService';
 
 export interface CrossbarConfig {
     baseURL: string;
@@ -20,8 +20,8 @@ export interface CrossbarConfig {
 }
 
 const defaultCrossbarConfig: CrossbarConfig = {
-    baseURL: "",
-    accountId: "",
+    baseURL: '',
+    accountId: '',
 };
 
 export class Crossbar {
@@ -57,7 +57,7 @@ export class Crossbar {
         if (this.config.pvtApiKey && !this.config.authToken) {
             const authPutData = { data: { api_key: this.config.pvtApiKey } };
             this.axios
-                .put("/api_auth", authPutData, this.axiosNonAccountConfig)
+                .put('/api_auth', authPutData, this.axiosNonAccountConfig)
                 .then((authResponse) => {
                     this.config.authToken = authResponse.data.auth_token;
                     this.setAxiosInterceptors();
@@ -85,8 +85,8 @@ export class Crossbar {
 
     setAxiosInterceptors() {
         this.axios.interceptors.request.use(async (config) => {
-            if (this.config.authToken != null && this.config.authToken != "") {
-                config.headers["X-Auth-Token"] = this.config.authToken;
+            if (this.config.authToken != null && this.config.authToken != '') {
+                config.headers['X-Auth-Token'] = this.config.authToken;
             }
             return config;
         });
@@ -100,11 +100,11 @@ export class Crossbar {
                         data: { api_key: this.config.pvtApiKey },
                     };
                     return this.axios
-                        .put("/api_auth", authPutData, this.axiosNonAccountConfig)
+                        .put('/api_auth', authPutData, this.axiosNonAccountConfig)
                         .then((authResponse) => {
                             this.config.authToken = authResponse.data.auth_token;
                             this.setAxiosInterceptors();
-                            errResponse.config.headers["X-Auth-Token"] = this.config.authToken;
+                            errResponse.config.headers['X-Auth-Token'] = this.config.authToken;
                             return this.axios(errResponse.config);
                         })
                         .catch((authErr) => {
