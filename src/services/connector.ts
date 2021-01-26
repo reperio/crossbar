@@ -1,26 +1,27 @@
 import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { AccountService } from "./accountService";
-import { ApiAuthService } from "./apiAuthService";
-import { CallflowService } from "./callflowService";
-import { CallInspectorService } from "./callInspectorService";
-import { CdrService } from "./cdrService";
-import { DeviceService } from "./deviceService";
-import { FaxService } from "./faxService";
-import { RecordingService } from "./recordingService";
-import { UserAuthService } from "./userAuthService";
-import { UserService } from "./userService";
-import { VoicemailService } from "./voicemailService";
+import { AccountService } from './accountService';
+import { ApiAuthService } from './apiAuthService';
+import { CallflowService } from './callflowService';
+import { CallInspectorService } from './callInspectorService';
+import { CdrService } from './cdrService';
+import { DeviceService } from './deviceService';
+import { FaxService } from './faxService';
+import { RecordingService } from './recordingService';
+import { UserAuthService } from './userAuthService';
+import { UserService } from './userService';
+import { VoicemailService } from './voicemailService';
+import { PhoneNumberService } from './phoneNumberService';
 
 export interface CrossbarConfig {
     baseURL: string;
     accountId: string;
     pvtApiKey?: string;
     authToken?: string;
-};
+}
 
 const defaultCrossbarConfig: CrossbarConfig = {
-    baseURL: "",
-    accountId: "",
+    baseURL: '',
+    accountId: '',
 };
 
 export class Crossbar {
@@ -39,24 +40,31 @@ export class Crossbar {
     readonly userAuthService: UserAuthService;
     readonly userService: UserService;
     readonly voicemailService: VoicemailService;
+    readonly phoneNumberService: PhoneNumberService;
 
     constructor(config?: Partial<CrossbarConfig>) {
         this.config = { ...defaultCrossbarConfig, ...config };
         this.axios = axiosStatic.create({
             baseURL: `${this.config.baseURL}/accounts/${this.config.accountId}`,
-            withCredentials: true
+            withCredentials: true,
         });
 
-        this.axiosNonAccountConfig = {...this.axios.defaults, baseURL: this.config.baseURL};
+        this.axiosNonAccountConfig = {
+            ...this.axios.defaults,
+            baseURL: this.config.baseURL,
+        };
 
         if (this.config.pvtApiKey && !this.config.authToken) {
             const authPutData = { data: { api_key: this.config.pvtApiKey } };
-            this.axios.put('/api_auth', authPutData, this.axiosNonAccountConfig).then(authResponse => {
-                this.config.authToken = authResponse.data.auth_token;
-                this.setAxiosInterceptors();
-            }).catch(authErr => {
-                return Promise.reject(authErr);
-            });
+            this.axios
+                .put('/api_auth', authPutData, this.axiosNonAccountConfig)
+                .then((authResponse) => {
+                    this.config.authToken = authResponse.data.auth_token;
+                    this.setAxiosInterceptors();
+                })
+                .catch((authErr) => {
+                    return Promise.reject(authErr);
+                });
         } else {
             this.setAxiosInterceptors();
         }
@@ -72,31 +80,40 @@ export class Crossbar {
         this.userAuthService = new UserAuthService(this);
         this.userService = new UserService(this);
         this.voicemailService = new VoicemailService(this);
+        this.phoneNumberService = new PhoneNumberService(this);
     }
 
     setAxiosInterceptors() {
-        this.axios.interceptors.request.use(async config => {
+        this.axios.interceptors.request.use(async (config) => {
             if (this.config.authToken != null && this.config.authToken != '') {
-                config.headers['X-Auth-Token'] = this.config.authToken
+                config.headers['X-Auth-Token'] = this.config.authToken;
             }
             return config;
         });
 
-        this.axios.interceptors.response.use(response => response, async error => {
-            let errResponse = error.response;
-            if (errResponse.status === 401 && this.config.pvtApiKey) {
-                const authPutData = { data: { api_key: this.config.pvtApiKey } };
-                return this.axios.put('/api_auth', authPutData, this.axiosNonAccountConfig).then(authResponse => {
-                    this.config.authToken = authResponse.data.auth_token;
-                    this.setAxiosInterceptors();
-                    errResponse.config.headers['X-Auth-Token'] = this.config.authToken;
-                    return this.axios(errResponse.config);
-                }).catch(authErr => {
-                    return Promise.reject(authErr);
-                });
-            } else {
-                return error;
+        this.axios.interceptors.response.use(
+            (response) => response,
+            async (error) => {
+                let errResponse = error.response;
+                if (errResponse.status === 401 && this.config.pvtApiKey) {
+                    const authPutData = {
+                        data: { api_key: this.config.pvtApiKey },
+                    };
+                    return this.axios
+                        .put('/api_auth', authPutData, this.axiosNonAccountConfig)
+                        .then((authResponse) => {
+                            this.config.authToken = authResponse.data.auth_token;
+                            this.setAxiosInterceptors();
+                            errResponse.config.headers['X-Auth-Token'] = this.config.authToken;
+                            return this.axios(errResponse.config);
+                        })
+                        .catch((authErr) => {
+                            return Promise.reject(authErr);
+                        });
+                } else {
+                    return error;
+                }
             }
-        });
+        );
     }
 }
